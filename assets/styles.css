@@ -1,0 +1,13 @@
+@font-face {
+    font-family: Dubai;
+    src: url('/assets/fonts/DubaiW23-Light.woff');
+}
+
+@font-face {
+    font-family: Dubai;
+    src: url('/assets/fonts/DubaiW23-Bold.woff');
+    font-weight: bold;
+}
+
+
+

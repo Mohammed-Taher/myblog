@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@font-face {
+    font-family: 'Dubai';
+    src: url('../assets/fonts/DubaiW23-Light.woff');
+    font-weight: 300;
+}
+@font-face {
+    font-family: 'Dubai';
+    src: url('../assets/fonts/DubaiW23-Light.woff');
+    font-weight: 400;
+}
+@font-face {
+    font-family: 'Dubai';
+    src: url('../assets/fonts/DubaiW23-Light.woff');
+    font-weight: 500;
+}
+@font-face {
+    font-family: 'Dubai';
+    src: url('../assets/fonts/DubaiW23-Bold.woff');
+    font-weight: 700;
+}
+
+
+pre {
+    direction: ltr;
+}
+
+@layer components {
+    .title {
+        @apply text-black dark:text-white before:content-['#'] before:ml-4 text-2xl md:text-3xl font-bold mb-10 before:text-slate-400 before:font-normal 
+    }
+
+    .content {
+        @apply text-black dark:text-white text-sm md:text-xl
+    }
+
+    .content > p {
+        @apply leading-loose text-justify
+    }
+
+    .content > ol {
+        @apply my-3 indent-8
+    }
+
+    .content > ol > li {
+        @apply my-2
+    }
+
+    
+    .content h2 {
+        @apply text-3xl font-bold mt-10 pb-5 before:content-['#'] before:ml-4
+    }
+
+    .content a {
+        @apply text-emerald-500 hover:text-emerald-700 underline
+    }
+
+    footer a {
+        @apply font-bold hover:underline
+    }
+
+
+    main > #avatar {
+        @apply w-20 md:w-36 rounded-full mx-auto mt-10 border-4 border-emerald-600 mb-10
+    }
+
+    code {
+        @apply text-sm !important
+    }
+
+    pre code {
+        @apply text-sm !important
+    }
+
+
+}
