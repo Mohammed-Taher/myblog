@@ -1,64 +1,98 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-    <head>
+  <head>
+    <meta property="og:site_name" content="{{ siteTitle }}" />
+    <meta property="og:title" content="{{ pageTitle }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ currentUrl }}" />
 
-        <meta property="og:site_name" content="{{ siteTitle }}"/>
-        <meta property="og:title" content="{{ pageTitle }}"/>
-        <meta property="og:type" content="website"/>
-        <meta property="og:url" content="{{ currentUrl }}"/>
+    {% if socialImage %}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="og:image" content="{{ socialImage }}" />
+    <meta name="twitter:image" content="{{ socialImage }}" />
+    <meta property="og:image:alt" content="Page image for {{ site.name }}" />
+    <meta name="twitter:image:alt" content="Page image for {{ site.name }}" />
+    {% endif %} {% if metaDesc %}
+    <meta name="description" content="{{ metaDesc }}" />
+    <meta name="twitter:description" content="{{ metaDesc }}" />
+    <meta property="og:description" content="{{ metaDesc }}" />
+    {% endif %}
 
-        {% if socialImage %}
-            <meta name="twitter:card" content="summary_large_image"/>
-            <meta property="og:image" content="{{ socialImage }}"/>
-            <meta name="twitter:image" content="{{ socialImage }}"/>
-            <meta property="og:image:alt" content="Page image for {{ site.name }}"/>
-            <meta name="twitter:image:alt" content="Page image for {{ site.name }}"/>
-        {% endif %}
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      href="http://localhost:8080/feed.xml"
+    />
 
-        {% if metaDesc %}
-            <meta name="description" content="{{ metaDesc }}"/>
-            <meta name="twitter:description" content="{{ metaDesc }}"/>
-            <meta property="og:description" content="{{ metaDesc }}"/>
-        {% endif %}
+    <title>محمد طاهر</title>
+    <link
+      href="https://unpkg.com/prismjs@1.20.0/themes/prism.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/assets/app.css" />
+  </head>
+  <body class="dark:bg-slate-800 dark:text-white">
+    <div class="container w-10/12 mx-auto md:w-8/12">
+      <header class="py-7">
+        <nav class="flex flex-row items-center nav box-hidden md:mx-auto">
+          <h1 class="flex-1 text-bold">
+            <a
+              href="/"
+              class="text-xl font-bold text-black hover:text-black md:text-3xl"
+              >محمد طاهر</a
+            >
+          </h1>
+          <ul class="flex flex-row ml-auto justify-content-between">
+            <li class="ml-8">
+              <a
+                href="/blog"
+                class="text-lg text-gray-500 hover:text-emerald-600"
+                >المقالات</a
+              >
+            </li>
+            <li class="mr-4">
+              <a
+                href="/categories"
+                class="text-lg text-gray-500 hover:text-emerald-600"
+                >المواضيع</a
+              >
+            </li>
+            {#
+            <svg
+              class="mx-4 cursor-pointer hover:stroke-black stroke-1 stroke-gray-400"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="feather feather-moon"
+            >
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+            #}
+          </ul>
+        </nav>
+      </header>
 
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="alternate" type="application/rss+xml" href="http://localhost:8080/feed.xml"/>
+      <main class="my-20 content text-md">
+        {{ content | safe }}
+      </main>
+    </div>
 
-        <title>محمد طاهر</title>
-        <link href="https://unpkg.com/prismjs@1.20.0/themes/prism.css" rel="stylesheet">
-        <link rel="stylesheet" href="/assets/app.css">
-    </head>
-    <body class="dark:bg-slate-800 dark:text-white">
-        <div class="container mx-auto w-10/12 md:w-8/12">
-            <header class="py-7">
-                <nav class="nav box-hidden flex flex-row md:mx-auto items-center">
-                    <h1 class="flex-1 text-bold">
-                        <a href="/" class="text-black hover:text-black text-xl md:text-3xl font-bold">محمد طاهر</a>
-                    </h1>
-                    <ul class="flex flex-row justify-content-between ml-auto">
-                        <li class="ml-8">
-                            <a href="/blog" class="text-gray-500 hover:text-emerald-600 text-lg">المقالات</a>
-                        </li>
-                        <li class="mr-4">
-                            <a href="/categories" class="text-gray-500 hover:text-emerald-600 text-lg">المواضيع</a>
-                        </li>
-                        {# <svg class="mx-4 hover:stroke-black stroke-1 stroke-gray-400 cursor-pointer"xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon">
-                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                        </svg>
-                        #}
-                    </ul>
-                </nav>
+    {% include 'footer.njk' %}
 
-            </header>
-
-            <main class="content my-20 text-md">
-                {{content | safe}}
-            </main>
-        </div>
-
-        {% include 'footer.njk' %}
-
-    </body>
+    <script
+      id="dsq-count-scr"
+      src="//mohtaher-com.disqus.com/count.js"
+      async
+    ></script>
+  </body>
 </html>
+
