@@ -2,20 +2,21 @@
 layout: base-layout.njk
 pagination:
   data: collections.post
+  filter: draft
   size: 5
   reverse: true
   alias: posts
 ---
 
-<ul style="list-style-type: none">
+<ul style="list-style-type:none">
   {% for post in posts %}
-  <li class="mt-10">
-    <h1 class="mb-5 text-xl font-bold md:text-3xl">
-      <a class="title" href="{{ post.url | url }}">{{ post.data.title }}</a>
+  <li class="mt-10 p-0">
+    <h1 class="mb-5">
+      <a class="font-bold text-2xl" href="{{ post.url | url }}">{{ post.data.title }}</a>
     </h1>
-    <div class="flex flex-row items-center">
+    <div class="flex flex-row items-baseline">
       <svg
-        class="mb-1 ml-2 stroke-gray-600 dark:stroke-white"
+        class="mb-1 ml-2 stroke-gray-600 dark:stroke-white feather feather-calender"
         xmlns="http://www.w3.org/2000/svg"
         width="16"
         height="16"
@@ -25,7 +26,6 @@ pagination:
         stroke-width="2"
         stroke-linecap="round"
         stroke-linejoin="round"
-        class="feather feather-calendar"
       >
         <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
         <line x1="16" y1="2" x2="16" y2="6"></line>
@@ -33,21 +33,20 @@ pagination:
         <line x1="3" y1="10" x2="21" y2="10"></line>
       </svg>
       <time
-        class="leading-none text-gray-600 text-md dark:text-white"
+        class="leading-none text-gray-600 text-[13pt] dark:text-white"
         datetime="{{ post.date | dateIso }}"
         >{{ post.date | dateReadable }}</time
       >
-      <span class="mr-auto">
-        {% for tag in tags -%} {% if tag !== 'posts' %}
-        <a
-          class="p-1 px-2 text-sm text-gray-400 bg-gray-300 rounded-lg hover:text-white hover:bg-emerald-900"
-          href="/blog/categories/}"
-          >{{ tag }}</a
-        >
-        {% endif %} {%- endfor %}
-      </span>
+
+      <div class="mb-5 mr-4 ">
+      {% for tag in post.data.tags -%}
+        {% if tag !== 'post' and tag !== 'draft' %}
+            <a class="tag" href="/tags/{{ tag }}">{{ tag }}</a>
+        {% endif %}
+      {%- endfor %}
+      </div>
     </div>
   </li>
-  {% endfor %}
+  {%- endfor %}
 </ul>
 

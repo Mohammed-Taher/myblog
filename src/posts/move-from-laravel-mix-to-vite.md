@@ -2,7 +2,9 @@
 layout: blog-post.njk
 title: نقل مشروع Laravel من Laravel Mix إلى Vite
 date: 2022-07-13
-tags: [post, php, laravel]
+tags:
+  - post
+  - Laravel
 ---
 
 أعلن فريق تطوير إطار العمل Laravel في الإصدار `9.19` أن إطار العمل سينتقل إلى استخدام [Vite](http://vitejs.dev) بدلًا عن [Laravel Mix](https://laravel-mix.com/) لتحزيم الأصول وتصريفها في مشاريع Laravel.
@@ -49,16 +51,11 @@ npm remove laravel-mix && rm webpack.mix.js
 الآن سنحتاج إلى تهيئة Vite للعمل؛ ولهذا سننشئ الملف `vite.config.js` في المجلد الرئيسي للمشروع. أضف الشيفرة التالية إلى هذا الملف:
 
 ```javascript
-import laravel from 'laravel-vite-plugin'
-import {defineConfig} from 'vite'
+import laravel from "laravel-vite-plugin";
+import { defineConfig } from "vite";
 
 export default defineConfig({
-    plugins: [
-        laravel([
-            'resources/css/app.css',
-            'resources/js/app.js',
-        ]),
-    ],
+  plugins: [laravel(["resources/css/app.css", "resources/js/app.js"])],
 });
 ```
 
@@ -91,16 +88,15 @@ npm run build
 يجدر التنبيه هنا إلى أن Vite يدعم وحدات ES فقط، وهذا يعني أنّك لا تستطيع استخدام `require` لاستيراد الملفات، بل يجب استخدام عبارة `import` لتنفيذ ذلك:
 
 ```javascript
-import myPackage from 'my-package';
+import myPackage from "my-package";
 ```
-
 
 ## التعامل مع ملفات CSS
 
 ينصح الدليل الرسمي للتحويل من Laravel Mix إلى Vite باستيراد ملفات CSS باستخدام ملفات Javscript للحصول على تجربة أفضل خصوصًا عند العمل على تطبيقات الصفحة الوحدة Single Page Applications:
 
 ```javascript
-import '../css/app.css';
+import "../css/app.css";
 ```
 
 ## ملاحظات بخصوص React و Vue
@@ -110,7 +106,7 @@ import '../css/app.css';
 كذلك الأمر بالنسبة لإطار العمل Vue، إذ يجب إضافة اللاحقة &#8206;`.vue` إلى اسم الملف عند استيراد المكونات:
 
 ```javascript
-import Button from './Button.vue'
+import Button from "./Button.vue";
 ```
 
 ## إعادة تحميل الصفحات تلقائيًا
@@ -122,33 +118,31 @@ import Button from './Button.vue'
 عدّل الملف `vite.config.js` ليصبح بالشكل التالي:
 
 ```javascript
-import laravel from 'laravel-vite-plugin'
-import {defineConfig} from 'vite'
+import laravel from "laravel-vite-plugin";
+import { defineConfig } from "vite";
 
 export default defineConfig({
-    plugins: [
-        laravel([
-            'resources/js/app.js',
-        ]),
-       {
-           name: 'blade',
-           handleHotUpdate({ file, server }) {
-               if (file.endsWith('.blade.php')) {
-                   server.ws.send({
-                       type: 'full-reload',
-                       path: '*',
-                   });
-               }
-           },
-       }
-    ],
-})
+  plugins: [
+    laravel(["resources/js/app.js"]),
+    {
+      name: "blade",
+      handleHotUpdate({ file, server }) {
+        if (file.endsWith(".blade.php")) {
+          server.ws.send({
+            type: "full-reload",
+            path: "*",
+          });
+        }
+      },
+    },
+  ],
+});
 ```
 
 والآن نفّذ الأمر `npm run dev`، وستلاحظ أن إجراء التعديلات على ملفات blade سيؤدي إلى إعادة تحميل الصفحة في المتصفح.
 
 ## المصادر
 
-* [Upgrade Guide	](https://github.com/laravel/vite-plugin/blob/main/UPGRADE.md)
-* [Moving A Laravel Webpack Project To Vite](https://christoph-rumpel.com/2022/6/moving-a-laravel-webpack-project-to-vite)
-* [Using Laravel Vite to automatically refresh your browser when changing a Blade file ](https://freek.dev/2277-using-laravel-vite-to-automatically-refresh-your-browser-when-changing-a-blade-file)
+- [Upgrade Guide ](https://github.com/laravel/vite-plugin/blob/main/UPGRADE.md)
+- [Moving A Laravel Webpack Project To Vite](https://christoph-rumpel.com/2022/6/moving-a-laravel-webpack-project-to-vite)
+- [Using Laravel Vite to automatically refresh your browser when changing a Blade file ](https://freek.dev/2277-using-laravel-vite-to-automatically-refresh-your-browser-when-changing-a-blade-file)
